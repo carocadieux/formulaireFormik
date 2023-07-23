@@ -3,49 +3,52 @@ import BsForm from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { Formik, Form } from "formik";
 import Input from "../input/Input";
 import { Stack } from "react-bootstrap";
 
 const Form = () => {
-  const [formData, setFormData] = useState({
+  const [formInfo, setFormInfo] = useState({
+    name: "John",
+    lastname: "Doe",
+    email: "JohnDoe@123",
+    password: "****",
+    })
 
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
+
+  const initialValues = ({
+
+    name: "John",
+    lastname: "Doe",
+    email: "JohnDoe@123",
+    password: "****",
   });
 
-  const onChange = (newValue, id) => {
-    setFormData({
-      ...formData,
-      [id]: newValue,
-    });
-  };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
 
-    alert(JSON.stringify(formData, null, 2));
+  const onSubmit = (values) => {
+    setFormInfo(values)
   };
 
   return (
-    <BsForm onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validateOnChange>
+    <BsForm  noValidate>
       <Row className="bg-white mb-3 pt-3 rounded-1">
         <Col>
           <Stack gap={3} className="border-dark"> 
-            <Input value={formData.name} id="name" onChange={onChange} />
+            <Input label="name" type="text" id="name" />
           
 
         
-            <Input value={formData.lastname} id="lastname" onChange={onChange} />
+            <Input label="lastname" type="text" id="lastname" />
           
 
           
-            <Input type="email" value={formData.email} id="email" onChange={onChange} />
+            <Input label="email" type="email"  id="email" />
           
 
           
-            <Input type="password" value={formData.password} id="password" onChange={onChange} />
+            <Input label="password" type="password"  id="password" />
           </Stack>
           <Button className="w-100 my-3" type="submit" variant="success">
             Login
@@ -56,6 +59,7 @@ const Form = () => {
       
 
     </BsForm>
+    </Formik>
   );
 };
 
