@@ -3,13 +3,38 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
-import Form from "./components/form/Form";
+import SuscribeForm from "./components/form/Form";
+import { Formik } from "formik"
+import { useState } from "react";
 
 
 
 
 function App() {
- 
+  const [formInfo, setFormInfo] = useState({
+    name: "John",
+    lastname: "Doe",
+    email: "JohnDoe@123",
+    password: "****",
+    })
+
+
+  const initialValues = ({
+    
+    name: "John",
+    lastname: "Doe",
+    email: "JohnDoe@123",
+    password: "****",
+    
+  });
+  
+
+
+  const onSubmit = (values) => {
+    setFormInfo(values)
+    console.log(values);
+  };
+  
 
   return (
     
@@ -30,8 +55,15 @@ function App() {
 
           <Col className="">
             <Button className="primary w-100 my-3">Try it free 7 days</Button>
-            <Form />
-              
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validateOnChange>
+            
+            <SuscribeForm 
+              name={formInfo.name}
+              lastname={formInfo.lastname}
+              email={formInfo.email}
+              password={formInfo.password}
+            />
+            </Formik>  
             
           </Col>
         </Row>

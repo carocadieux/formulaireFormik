@@ -1,26 +1,25 @@
-import React from "react";
-import BsInput from "react-bootstrap/FormControl";
+
+import Form from 'react-bootstrap/Form';
+
 import { useField } from "formik";
 
 
-const Input = ({ label, id, type = "text", ...rest }) => {
+export const Input = ({ label, id, type, ...rest }) => {
     const [field, meta] = useField(id);
     const isError = meta.touched && meta.error;
+   
 
   return (
     <Form.Group>
-        {label && <Form.label htmlFor={id}></Form.label>}
-        <BsInput
+        {label && <Form.Label htmlFor={id}>{label}</Form.Label>}
+        <Form.Control
         isInvalid={isError}
-        id={id}
         type={type}
         {...field}
         {...rest}
         />
         {isError && 
-        <BsInput.Feedback type="invalid">{meta.error}</BsInput.Feedback>}
+        <Form.Control.Feedback type="invalid">{meta.error}</Form.Control.Feedback>}
     </Form.Group>
   );
-};
-
-export default Input;
+}
